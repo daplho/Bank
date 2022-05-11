@@ -15,6 +15,8 @@ try
     regularAccount.MakeDeposit(100, DateTime.Now, "Friend paid me back");
     Console.WriteLine($"Account balance: ${regularAccount.Balance}");
 
+    Console.WriteLine(regularAccount.GetAccountHistory());
+
     regularAccount.MakeWithdrawal(7500, DateTime.Now, "Attempt to overdraw");
 }
 catch(InvalidOperationException ioe)

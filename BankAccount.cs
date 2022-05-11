@@ -29,6 +29,20 @@ public class BankAccount
 
     public List<Transaction> allTransactions = new List<Transaction>();
 
+    public string GetAccountHistory()
+    {
+        var report = new System.Text.StringBuilder();
+
+        decimal balance = 0;
+        report.AppendLine("Date\t\tAmount\tBalance\tNote");
+        foreach (var item in allTransactions)
+        {
+            balance += item.Amount;
+            report.AppendLine($"{item.Date.ToShortDateString()}\t{item.Amount}\t{balance}\t{item.Notes}");
+        }
+        return report.ToString();
+    }
+
     public void MakeDeposit(decimal amount, DateTime date, string note)
     {
         if (amount <= 0)
