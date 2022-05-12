@@ -18,10 +18,11 @@ savings.MakeWithdrawal(250, DateTime.Now, "needed to pay monthly bills");
 savings.PerformMonthEndTransactions();
 Console.WriteLine(savings.GetAccountHistory());
 
-var lineOfCredit = new LineOfCreditAccount("line of credit", 0, 10000);
+var lineOfCredit = new LineOfCreditAccount("line of credit", 0, 2000);
 lineOfCredit.MakeWithdrawal(1000m, DateTime.Now, "take out montly advance");
 lineOfCredit.MakeDeposit(50m, DateTime.Now, "pay back a small amount");
 lineOfCredit.MakeWithdrawal(5000m, DateTime.Now, "emergency funds for repairs");
 lineOfCredit.MakeDeposit(150m, DateTime.Now, "partial restoration on repairs");
+lineOfCredit.MakeWithdrawal(1000m, DateTime.Now, "another monthly advance");
 lineOfCredit.PerformMonthEndTransactions();
 Console.WriteLine(lineOfCredit.GetAccountHistory());

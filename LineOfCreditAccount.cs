@@ -14,4 +14,10 @@ public class LineOfCreditAccount : BankAccount
             MakeWithdrawal(interest, DateTime.Now, "Charge montly interest");
         }
     }
+
+    protected override Transaction? CheckWithdrawalLimit(bool isOverdrawn) =>
+        isOverdrawn
+        ? new Transaction(-20, DateTime.Now, "apply overdraft fee")
+        : default;
+
 }
