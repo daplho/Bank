@@ -3,6 +3,7 @@ namespace Bank;
 public class BankAccount
 {
     private static int accountNumberSeed = 1234567890;
+    private readonly decimal _minimumBalance;
     public string Number { get; }
     public string Owner { get; set; }
     public decimal Balance
@@ -19,12 +20,17 @@ public class BankAccount
         }
     }
 
-    public BankAccount(string name, decimal initialBalance)
+    public BankAccount(string name, decimal initialBalance): this(name, initialBalance, 0) { }
+
+    public BankAccount(string name, decimal initialBalance, decimal minimumBalance)
     {
         Number = accountNumberSeed.ToString();
         accountNumberSeed++;
+
         Owner = name;
-        MakeDeposit(initialBalance, DateTime.Now, "Initial balance");
+        _minimumBalance = minimumBalance;
+        if (initialBalance > 0)
+            MakeDeposit(initialBalance, DateTime.Now, "Initial balance");
     }
 
     public List<Transaction> allTransactions = new List<Transaction>();
@@ -59,7 +65,7 @@ public class BankAccount
         {
             throw new ArgumentOutOfRangeException(nameof(amount), "Amount of withdrawal must be positive.");
         }
-        if (Balance - amount < 0)
+        if (Balance - amount < _minimumBalance)
         {
             throw new InvalidOperationException("Not sufficient funds for this withdrawal.");
         }
